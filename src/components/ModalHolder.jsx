@@ -50,7 +50,7 @@ export default function ModalHolder() {
                   />
                   <Button
                     title="Adicionar tarefa"
-
+                    onPress={ addTask }
                   />
                 </View>
             </TouchableWithoutFeedback>
