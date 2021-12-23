@@ -8,8 +8,13 @@ const screen = Dimensions.get('screen');
 
 export default function ModalHolder() {
   const { addTaskModalIsVisible, setAddTaskModalIsVisible, taskList, setTaskList } = useContext(GlobalProvider);
+  const [task, setTask] = useState('')
 
-  const addTask = (value) => {
+  const handleTaskTitle = (value) => {
+    setTask(value);
+  };
+
+  const addTask = () => {
     setTaskList([...taskList, {
       id: '',
       task: value,
@@ -38,6 +43,8 @@ export default function ModalHolder() {
                 >
                   <InputBox
                     title="Tarefa"
+                    action={ handleTaskTitle }
+                    value={ task }
                   />
                   <Button
                     title="Adicionar tarefa"

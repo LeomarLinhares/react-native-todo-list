@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput } from 'react-native';
 
-export default function InputBox({ title }) {
-  const [task, setTask] = useState('')
-
+export default function InputBox({ title, action, value }) {
   return (
     <View style={ styles.container }>
       <Text style={ styles.textStyle }>{ title }</Text>
       <TextInput
         style={ styles.textInput }
-        onChangeText={ setTask }
-        value={ task }
+        onChangeText={ (text) => action(text) }
+        value={ value }
       />
     </View>
   )
