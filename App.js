@@ -1,12 +1,18 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import AddTaskButton from './src/components/AddTaskButton';
+import ModalHolder from './src/components/ModalHolder';
+import GlobalContext from './src/contexts/GlobalContext';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <GlobalContext>
+      <View style={styles.container}>
+        <StatusBar style="auto" />
+        <ModalHolder />
+        <AddTaskButton />
+      </View>
+    </GlobalContext>
   );
 }
 
