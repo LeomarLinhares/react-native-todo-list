@@ -1,16 +1,23 @@
 import React, { useState, createContext, useEffect } from 'react';
-import useStorageData from '../hooks/useStorageData'
+import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 
 export const GlobalProvider = createContext({});
 
 export default function GlobalContext({ children }) {
   const [taskList, setTaskList] = useState([]);
   const [isLoadingData, setIsLoadingData] = useState(true)
-  const storageData = useStorageData('@storage_data');
+  const { getItem } = useAsyncStorage('@storage_data')
   const [addTaskModalIsVisible, setAddTaskModalIsVisible] = useState(false);
 
+  const readItemFromStorage = async () => {
+    const list = await getItem();
+    const data = await JSON.parse(list);
+    console.log(data)
+    setTaskList(data)
+  }
+
   useEffect(() => {
-    setTaskList(storageData);
+    readItemFromStorage();
     setIsLoadingData(false);
   }, [])
 
