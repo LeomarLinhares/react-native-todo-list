@@ -5,13 +5,15 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     flexDirection: 'row',
-    width: '100%',
+    height: 40,
+    alignItems: 'center',
   },
 });
 
-export default function TaskCard({ task }) {
+export default function TaskCard({ task, fatherLayoutInfo, id }) {
+  const { width } = fatherLayoutInfo;
   return (
-    <View>
+    <View style={ { ...styles.container, width: width - 10 } }>
       <Text>{ task }</Text>
     </View>
   )
