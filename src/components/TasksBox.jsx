@@ -40,7 +40,6 @@ export default function TasksBox() {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    borderWidth: 1,
     width: screen.width - 60,
     minHeight: window.height - 50,
   },
