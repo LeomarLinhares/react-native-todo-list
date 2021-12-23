@@ -4,6 +4,7 @@ import { BlurView } from 'expo-blur';
 import { GlobalProvider } from '../contexts/GlobalContext';
 import InputBox from './InputBox';
 import createID from '../helpers/createID';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const screen = Dimensions.get('screen');
 
@@ -15,12 +16,18 @@ export default function ModalHolder() {
     setTask(value);
   };
 
-  const addTask = () => {
+  const addTask = async () => {
     const id = createID(16);
     setTaskList([...taskList, {
       id,
       task,
     }])
+    try {
+      const stringfiedData = await JSON.stringify(taskList);
+      await AsyncStorage.setItem('@storage_data', stringfiedData);
+    } catch (error) {
+      console.log(error);
+    }
   };
   
   return (
