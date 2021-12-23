@@ -3,6 +3,7 @@ import { View, Modal, StyleSheet, Dimensions, TouchableOpacity, TouchableWithout
 import { BlurView } from 'expo-blur';
 import { GlobalProvider } from '../contexts/GlobalContext';
 import InputBox from './InputBox';
+import createID from '../helpers/createID';
 
 const screen = Dimensions.get('screen');
 
@@ -15,9 +16,10 @@ export default function ModalHolder() {
   };
 
   const addTask = () => {
+    const id = createID(16);
     setTaskList([...taskList, {
-      id: '',
-      task: value,
+      id,
+      task,
     }])
   };
   
