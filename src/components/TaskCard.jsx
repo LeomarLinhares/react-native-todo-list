@@ -1,5 +1,6 @@
-import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import React, { useContext } from 'react';
+import { StyleSheet, Text, Pressable } from 'react-native';
+import { GlobalProvider } from '../contexts/GlobalContext';
 
 const styles = StyleSheet.create({
   container: {
@@ -17,12 +18,20 @@ const styles = StyleSheet.create({
 });
 
 export default function TaskCard({ task, fatherLayoutInfo, id }) {
+  const { taskList, setTaskList } = useContext(GlobalProvider)
   const { width } = fatherLayoutInfo;
+
+  const deleteTask = () => {
+    const listWithoutDeleted = taskList.filter((element) => element.id !== id);
+    setTaskList(listWithoutDeleted);
+  };
+
   return (
-    <View
+    <Pressable
       style={ { ...styles.container, width: width - 10 } }
+      onLongPress={ deleteTask }
     >
       <Text style={ styles.textStyle }>{ task }</Text>
-    </View>
+    </Pressable>
   )
 }
