@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const useStorageData = () => {
-  const [storageData, setStorageData] = useState(null);
+const useStorageData = (item) => {
+  const [storageData, setStorageData] = useState([]);
 
   useEffect(async () => {
-    const response = await AsyncStorage.getItem('@storage_data');
+    const response = await AsyncStorage.getItem(item);
     const json = response ? await JSON.parse() : [];
 
     setStorageData(json);
