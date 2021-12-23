@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react';
-import { Pressable, StyleSheet, Dimensions } from 'react-native';
+import { Pressable, StyleSheet, Dimensions, Text } from 'react-native';
 import { GlobalProvider } from '../contexts/GlobalContext';
-import IconPlus from '../Icons/IconPlus';
 
 const screen = Dimensions.get('screen');
 
@@ -38,7 +37,7 @@ export default function AddTaskButton() {
       onLayout={ ({ nativeEvent: { layout } }) =>  setButtonDimensions(layout) }
       onPress={ () => setAddTaskModalIsVisible(!addTaskModalIsVisible) }
     >
-      <IconPlus />
+      <Text>+</Text>
     </Pressable>
   )
 }
