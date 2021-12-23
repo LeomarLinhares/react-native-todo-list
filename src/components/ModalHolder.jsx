@@ -4,13 +4,14 @@ import { BlurView } from 'expo-blur';
 import { GlobalProvider } from '../contexts/GlobalContext';
 import InputBox from './InputBox';
 import createID from '../helpers/createID';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 
 const screen = Dimensions.get('screen');
 
 export default function ModalHolder() {
   const { addTaskModalIsVisible, setAddTaskModalIsVisible, taskList, setTaskList } = useContext(GlobalProvider);
-  const [task, setTask] = useState('')
+  const [task, setTask] = useState('');
+  const { setItem } = useAsyncStorage('@storage_data');
 
   const handleTaskTitle = (value) => {
     setTask(value);
@@ -24,7 +25,7 @@ export default function ModalHolder() {
     }])
     try {
       const stringfiedData = await JSON.stringify(taskList);
-      await AsyncStorage.setItem('@storage_data', stringfiedData);
+      setItem(stringfiedData);
     } catch (error) {
       console.log(error);
     }
