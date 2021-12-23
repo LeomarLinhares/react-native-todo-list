@@ -7,7 +7,7 @@ const screen = Dimensions.get('screen');
 const window = Dimensions.get('window');
 
 export default function TasksBox() {
-  const { taskList } = useContext(GlobalProvider);
+  const { taskList, isLoadingData } = useContext(GlobalProvider);
   const [componentLayout, setComponentLayout] = useState({});
 
   const renderTask = ({ item }) => (
@@ -17,6 +17,7 @@ export default function TasksBox() {
       id={ item.id }
     />);
 
+  if (isLoadingData) return <View><Text>Carregando...</Text></View>
   return (
     <View
       style={ styles.container }
