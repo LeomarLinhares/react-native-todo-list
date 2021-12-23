@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { View, Modal, StyleSheet, Dimensions, TouchableOpacity, TouchableWithoutFeedback, Button } from 'react-native';
 import { BlurView } from 'expo-blur';
 import { GlobalProvider } from '../contexts/GlobalContext';
