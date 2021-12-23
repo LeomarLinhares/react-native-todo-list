@@ -5,13 +5,16 @@ const useStorageData = (item) => {
   const [storageData, setStorageData] = useState([]);
 
   useEffect(async () => {
-    const response = await AsyncStorage.getItem(item);
-    const json = response ? await JSON.parse() : [];
-
-    setStorageData(json);
+    try {
+      const response = await AsyncStorage.getItem(item);
+      const json = response ? await JSON.parse() : [];   
+      setStorageData(json);
+    } catch (error) {
+      console.log(error)
+    }
   })
 
   return storageData;
 }
 
-export default useStorageData
+export default useStorageData;
