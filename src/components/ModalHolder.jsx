@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { View, Modal, StyleSheet, Dimensions, TouchableOpacity, TouchableWithoutFeedback, Button } from 'react-native';
 import { BlurView } from 'expo-blur';
 import { GlobalProvider } from '../contexts/GlobalContext';
@@ -17,19 +17,22 @@ export default function ModalHolder() {
     setTask(value);
   };
 
-  const addTask = async () => {
+  const addTask = () => {
     const id = createID(16);
     setTaskList([...taskList, {
       id,
       task,
     }])
+  };
+
+  useEffect(async () => {
     try {
       const stringfiedData = await JSON.stringify(taskList);
       setItem(stringfiedData);
     } catch (error) {
       console.log(error);
     }
-  };
+  }, [taskList])
   
   return (
     <View>
