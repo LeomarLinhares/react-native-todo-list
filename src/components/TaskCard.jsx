@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
 });
 
 export default function TaskCard({ task, id }) {
-  const { taskList, setTaskList } = useContext(GlobalProvider);
+  const { taskList, setTaskList, selectedTasks, setSelectedTasks } = useContext(GlobalProvider);
   const { setItem } = useAsyncStorage('@storage_data');
 
   const deleteTask = async () => {
@@ -32,10 +32,33 @@ export default function TaskCard({ task, id }) {
     setItem(await JSON.stringify(listWithoutDeleted));
   };
 
+  const isSelected = () => (
+    selectedTasks
+      .filter((selectedTask) => id === selectedTask.id)
+      .length > 0
+  );
+
+  const styleHandle = (isPressed) => {
+    if (isSelected()) {
+      return [styles.container, { backgroundColor: '#dee2e6' }]
+    } else {
+      return [styles.container, { backgroundColor: isPressed ? '#dee2e6' : 'white' }]
+    }
+  };
+
   return (
     <Pressable
-      style={ ({ pressed }) => [styles.container, { backgroundColor: pressed ? '#dee2e6' : 'white' }] }
-      onLongPress={ deleteTask }
+      style={ ({ pressed }) => styleHandle(pressed) }
+      onLongPress={ () => {
+        setSelectedTasks([...selectedTasks, { id, task }]);
+      } }
+      onPress={ () => {
+        if (isSelected()) {
+          setSelectedTasks(selectedTasks.filter((element) => element.id !== id));
+        } else if (selectedTasks.length > 0) {
+          setSelectedTasks([...selectedTasks, { id, task }]);
+        }
+      } }
     >
       <Text style={ styles.textStyle }>{ task }</Text>
     </Pressable>
