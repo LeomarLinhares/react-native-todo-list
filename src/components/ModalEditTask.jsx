@@ -18,7 +18,7 @@ export default function ModalEditTask() {
 
   const editTask = () => {
     const modifiedList = taskList.reduce((acc, curr) => {
-      if (curr.id === selectedTasks[0].id) return [...acc, { id: selectedTasks[0].id, task }];
+      if (curr.id === selectedTasks[0].id) return [...acc, { ...curr, id: selectedTasks[0].id, task }];
       return [...acc, curr];
     }, []);
     setTaskList(modifiedList);
