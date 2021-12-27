@@ -26,12 +26,6 @@ export default function TaskCard({ task, id }) {
   const { taskList, setTaskList, selectedTasks, setSelectedTasks } = useContext(GlobalProvider);
   const { setItem } = useAsyncStorage('@storage_data');
 
-  const deleteTask = async () => {
-    const listWithoutDeleted = taskList.filter((element) => element.id !== id);
-    setTaskList(listWithoutDeleted);
-    setItem(await JSON.stringify(listWithoutDeleted));
-  };
-
   const isSelected = () => (
     selectedTasks
       .filter((selectedTask) => id === selectedTask.id)
