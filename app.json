@@ -22,10 +22,9 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF",
-        "package": "com.leomarlinhares.react-todo-list",
-        "versionCode": 1
-      }
+        "backgroundColor": "#FFFFFF"
+      },
+      "package": "com.leomarlinhares.reactnativetodolist"
     },
     "web": {
       "favicon": "./assets/favicon.png"
