@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Pressable, StyleSheet, Dimensions, Text } from 'react-native';
 import { GlobalProvider } from '../contexts/GlobalContext';
+import { Ionicons } from '@expo/vector-icons';
 
 const screen = Dimensions.get('screen');
 
@@ -37,7 +38,7 @@ export default function AddTaskButton() {
       onLayout={ ({ nativeEvent: { layout } }) =>  setButtonDimensions(layout) }
       onPress={ () => setAddTaskModalIsVisible(!addTaskModalIsVisible) }
     >
-      <Text>+</Text>
+      <Ionicons name="add" size={ buttonDimensionLimiter(screen.width / 11.2) } color="white" />
     </Pressable>
   )
 }
