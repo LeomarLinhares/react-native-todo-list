@@ -26,6 +26,13 @@ export default function TaskCard({ task, id }) {
   const { taskList, setTaskList, selectedTasks, setSelectedTasks } = useContext(GlobalProvider);
   const { setItem } = useAsyncStorage('@storage_data');
 
+  const onLongPressHandle = () => {
+    const doesThisObjectExistInTheSelectedTasks = selectedTasks.some((element) => element.id === id);
+    if (!doesThisObjectExistInTheSelectedTasks) {
+      setSelectedTasks([...selectedTasks, { id, task }]);
+    }
+  };
+
   const isSelected = () => (
     selectedTasks
       .filter((selectedTask) => id === selectedTask.id)
@@ -43,9 +50,7 @@ export default function TaskCard({ task, id }) {
   return (
     <Pressable
       style={ ({ pressed }) => styleHandle(pressed) }
-      onLongPress={ () => {
-        setSelectedTasks([...selectedTasks, { id, task }]);
-      } }
+      onLongPress={ onLongPressHandle }
       onPress={ () => {
         if (isSelected()) {
           setSelectedTasks(selectedTasks.filter((element) => element.id !== id));
