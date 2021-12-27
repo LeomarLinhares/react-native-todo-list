@@ -10,11 +10,11 @@ export default function TasksBox() {
   const { taskList, isLoadingData } = useContext(GlobalProvider);
 
   const renderTask = ({ item }) => {
-    console.log(item)
     return (
     <TaskCard
       task={ item.task }
       id={ item.id }
+      done={ item.done }
     />
     );
   };
