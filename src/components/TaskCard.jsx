@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { Text, Pressable, StyleSheet, Dimensions } from 'react-native';
 import { GlobalProvider } from '../contexts/GlobalContext';
-import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 
 const screen = Dimensions.get('screen');
 
@@ -23,8 +22,7 @@ const styles = StyleSheet.create({
 });
 
 export default function TaskCard({ task, id }) {
-  const { taskList, setTaskList, selectedTasks, setSelectedTasks } = useContext(GlobalProvider);
-  const { setItem } = useAsyncStorage('@storage_data');
+  const { selectedTasks, setSelectedTasks } = useContext(GlobalProvider);
 
   const onLongPressHandle = () => {
     const doesThisObjectExistInTheSelectedTasks = selectedTasks.some((element) => element.id === id);

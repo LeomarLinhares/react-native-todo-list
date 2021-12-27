@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { View, FlatList, StyleSheet, Dimensions, Text } from 'react-native';
 import { GlobalProvider } from '../contexts/GlobalContext';
 import TaskCard from './TaskCard';
