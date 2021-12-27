@@ -29,7 +29,7 @@ export default function Header() {
           <View style={ styles.styleSelectedItem }>
             <Ionicons
               name="trash"
-              size={ 40 }
+              size={ 24 }
               color="black"
               onPress={ deleteTasks }
             />
