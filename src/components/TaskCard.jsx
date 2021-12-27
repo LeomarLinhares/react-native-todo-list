@@ -34,7 +34,7 @@ export default function TaskCard({ task, id }) {
 
   return (
     <Pressable
-      style={ { ...styles.container } }
+      style={ ({ pressed }) => [styles.container, { backgroundColor: pressed ? '#dee2e6' : 'white' }] }
       onLongPress={ deleteTask }
     >
       <Text style={ styles.textStyle }>{ task }</Text>
