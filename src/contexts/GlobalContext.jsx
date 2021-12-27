@@ -7,7 +7,6 @@ export default function GlobalContext({ children }) {
   const [taskList, setTaskList] = useState([]);
   const [isLoadingData, setIsLoadingData] = useState(true)
   const { getItem } = useAsyncStorage('@storage_data')
-  const [addTaskModalIsVisible, setAddTaskModalIsVisible] = useState(false);
   const [selectedTasks, setSelectedTasks] = useState([]);
 
   const readItemFromStorage = async () => {
@@ -24,8 +23,6 @@ export default function GlobalContext({ children }) {
   const GlobalState = {
     taskList,
     setTaskList,
-    addTaskModalIsVisible,
-    setAddTaskModalIsVisible,
     isLoadingData,
     selectedTasks,
     setSelectedTasks,

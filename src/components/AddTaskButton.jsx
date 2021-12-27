@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { StyleSheet } from 'react-native';
-import { GlobalProvider } from '../contexts/GlobalContext';
 import { Ionicons } from '@expo/vector-icons';
+import { ModalProvider } from '../contexts/ModalContext';
 
 const styles = StyleSheet.create({
   iconStyle: {
@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
 });
 
 export default function AddTaskButton() {
-  const { addTaskModalIsVisible, setAddTaskModalIsVisible } = useContext(GlobalProvider);
+  const { addTaskModalIsVisible, setAddTaskModalIsVisible } = useContext(ModalProvider);
 
   return (
       <Ionicons

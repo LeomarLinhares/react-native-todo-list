@@ -5,17 +5,20 @@ import Header from './src/components/Header';
 import ModalHolder from './src/components/ModalHolder';
 import TasksBox from './src/components/TasksBox';
 import GlobalContext from './src/contexts/GlobalContext';
+import ModalContext from './src/contexts/ModalContext';
 
 export default function App() {
   return (
     <GlobalContext>
-      <View style={styles.container}>
-        <Header />
-        <TasksBox />
-        <ModalHolder />
-        <AddTaskButton />
-        <StatusBar style="auto" />
-      </View>
+      <ModalContext>
+        <View style={styles.container}>
+          <Header />
+          <TasksBox />
+          <ModalHolder />
+          <AddTaskButton />
+          <StatusBar style="auto" />
+        </View>
+      </ModalContext>
     </GlobalContext>
   );
 }
