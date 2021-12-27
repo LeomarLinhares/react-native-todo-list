@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { GlobalProvider } from '../contexts/GlobalContext';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, Feather } from '@expo/vector-icons';
 import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 import { ModalProvider } from '../contexts/ModalContext';
 
@@ -30,6 +30,11 @@ export default function Header() {
           size={ 24 }
           color="black"
           onPress={ deleteTasks }
+        />
+        <Feather
+          name="check-square"
+          size={24}
+          color="black"
         />
         {
           selectedTasks.length === 1
@@ -78,6 +83,6 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   icon: {
-    marginHorizontal: 10,
+    marginHorizontal: 16,
   }
 });
