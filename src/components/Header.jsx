@@ -19,21 +19,38 @@ export default function Header() {
     setItem(await JSON.stringify(listWithoutDeleted));
   };
 
+  const selectedModRender = () => {
+    return (
+      <View style={ styles.styleSelectedItem }>
+        <Ionicons
+          style={ styles.icon }
+          name="trash"
+          size={ 24 }
+          color="black"
+          onPress={ deleteTasks }
+        />
+        {
+          selectedTasks.length === 1
+          ? (
+            <Ionicons
+              style={ styles.icon }
+              name="pencil"
+              size={ 24 }
+              color="black"
+            />)
+          : <></>
+        }
+      </View>
+    );
+  };
+
   return (
     <View
       style={ styles.container }
     >
       {
         selectedTasks.length > 0
-          ? (
-          <View style={ styles.styleSelectedItem }>
-            <Ionicons
-              name="trash"
-              size={ 24 }
-              color="black"
-              onPress={ deleteTasks }
-            />
-          </View>)
+          ? selectedModRender() 
           : <Text style={ styles.text }>Lista de tarefas</Text>
       }
     </View>
@@ -54,6 +71,10 @@ const styles = StyleSheet.create({
   styleSelectedItem: {
     display: 'flex',
     width: '100%',
+    flexDirection: 'row-reverse',
     alignItems: 'flex-end',
+  },
+  icon: {
+    marginHorizontal: 10,
   }
 });
