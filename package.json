@@ -15,7 +15,8 @@
     "react-native": "0.64.3",
     "react-native-svg": "12.1.1",
     "react-native-web": "0.17.1",
-    "expo-blur": "~11.0.0"
+    "expo-blur": "~11.0.0",
+    "@react-native-async-storage/async-storage": "~1.15.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

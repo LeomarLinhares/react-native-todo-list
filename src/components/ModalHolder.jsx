@@ -1,15 +1,17 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { View, Modal, StyleSheet, Dimensions, TouchableOpacity, TouchableWithoutFeedback, Button } from 'react-native';
 import { BlurView } from 'expo-blur';
 import { GlobalProvider } from '../contexts/GlobalContext';
 import InputBox from './InputBox';
 import createID from '../helpers/createID';
+import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 
 const screen = Dimensions.get('screen');
 
 export default function ModalHolder() {
   const { addTaskModalIsVisible, setAddTaskModalIsVisible, taskList, setTaskList } = useContext(GlobalProvider);
-  const [task, setTask] = useState('')
+  const [task, setTask] = useState('');
+  const { setItem } = useAsyncStorage('@storage_data');
 
   const handleTaskTitle = (value) => {
     setTask(value);
@@ -21,7 +23,18 @@ export default function ModalHolder() {
       id,
       task,
     }])
+    setTask('');
+    setAddTaskModalIsVisible(false);
   };
+
+  useEffect(async () => {
+    try {
+      const stringfiedData = await JSON.stringify(taskList);
+      setItem(stringfiedData);
+    } catch (error) {
+      console.log(error);
+    }
+  }, [taskList])
   
   return (
     <View>
@@ -51,6 +64,7 @@ export default function ModalHolder() {
                   <Button
                     title="Adicionar tarefa"
                     onPress={ addTask }
+                    color="#0c4b5e"
                   />
                 </View>
             </TouchableWithoutFeedback>
@@ -68,7 +82,6 @@ const styles = StyleSheet.create({
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 22,
   },
   addTaskModalView: {
     width: screen.width - 100,
@@ -77,6 +90,6 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderWidth: 1,
     backgroundColor: '#000000',
-    borderColor: '#fff',
+    borderColor: 'black',
   },
 });

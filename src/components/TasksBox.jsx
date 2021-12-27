@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { View, FlatList, StyleSheet, Dimensions, Text } from 'react-native';
 import { GlobalProvider } from '../contexts/GlobalContext';
 import TaskCard from './TaskCard';
@@ -7,20 +7,22 @@ const screen = Dimensions.get('screen');
 const window = Dimensions.get('window');
 
 export default function TasksBox() {
-  const { taskList } = useContext(GlobalProvider);
-  const [componentLayout, setComponentLayout] = useState({});
+  const { taskList, isLoadingData } = useContext(GlobalProvider);
 
-  const renderTask = ({ item }) => (
+  const renderTask = ({ item }) => {
+    console.log(item)
+    return (
     <TaskCard
       task={ item.task }
-      fatherLayoutInfo={ componentLayout }
       id={ item.id }
-    />);
+    />
+    );
+  };
 
+  if (isLoadingData) return <View><Text>Carregando...</Text></View>
   return (
     <View
       style={ styles.container }
-      onLayout={ ({ nativeEvent: { layout } }) => setComponentLayout(layout) }
     >
       {
         taskList.length
