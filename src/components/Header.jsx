@@ -21,6 +21,18 @@ export default function Header() {
     setItem(await JSON.stringify(listWithoutDeleted));
   };
 
+  const doneTasks = async () => {
+    const listWithDone = taskList.reduce((acc, curr) => {
+      const actualTask = selectedTasks.filter((element) => element.id === curr.id);
+      const item = actualTask[0];
+      if (actualTask.length > 0) return [...acc, { id: item.id, task: item.task, done: !item.done }];
+      return [...acc, curr];
+    }, []);
+    setTaskList(listWithDone);
+    setSelectedTasks([]);
+    setItem(await JSON.stringify(listWithDone));
+  };
+
   const selectedModRender = () => {
     return (
       <View style={ styles.styleSelectedItem }>
@@ -32,9 +44,11 @@ export default function Header() {
           onPress={ deleteTasks }
         />
         <Feather
+          style={ styles.icon }
           name="check-square"
           size={24}
           color="black"
+          onPress={ doneTasks }
         />
         {
           selectedTasks.length === 1
