@@ -64,6 +64,7 @@ export default function ModalHolder() {
                   <Button
                     title="Adicionar tarefa"
                     onPress={ addTask }
+                    color="#0c4b5e"
                   />
                 </View>
             </TouchableWithoutFeedback>
@@ -89,6 +90,6 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderWidth: 1,
     backgroundColor: '#000000',
-    borderColor: '#fff',
+    borderColor: 'black',
   },
 });
