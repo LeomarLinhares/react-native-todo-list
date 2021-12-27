@@ -81,7 +81,6 @@ const styles = StyleSheet.create({
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 22,
   },
   addTaskModalView: {
     width: screen.width - 100,
