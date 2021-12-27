@@ -33,6 +33,11 @@ export default function Header() {
     setItem(await JSON.stringify(listWithDone));
   };
 
+  const allDoneEqualObserver = () => selectedTasks.reduce((acc, curr) => {
+    if (acc.started) return { last: curr.done, result: true }
+    return { last: curr.done, result: acc.last === curr.done }
+  }, { started: true });
+
   const selectedModRender = () => {
     return (
       <View style={ styles.styleSelectedItem }>
@@ -43,13 +48,20 @@ export default function Header() {
           color="black"
           onPress={ deleteTasks }
         />
-        <Feather
-          style={ styles.icon }
-          name="check-square"
-          size={24}
-          color="black"
-          onPress={ doneTasks }
-        />
+        {
+          allDoneEqualObserver().result
+            ? (
+              <Feather
+                style={ styles.icon }
+                name={ selectedTasks[0].done ? 'divide-square' : 'check-square' }
+                size={ 24 }
+                color="black"
+                onPress={ doneTasks }
+              />
+            )
+            : <></>
+        }
+        
         {
           selectedTasks.length === 1
           ? (
