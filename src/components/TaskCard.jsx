@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Text, Pressable, StyleSheet, Dimensions } from 'react-native';
 import { GlobalProvider } from '../contexts/GlobalContext';
+import { Feather } from '@expo/vector-icons';
 
 const screen = Dimensions.get('screen');
 
@@ -21,13 +22,13 @@ const styles = StyleSheet.create({
   }
 });
 
-export default function TaskCard({ task, id }) {
+export default function TaskCard({ task, id, done }) {
   const { selectedTasks, setSelectedTasks } = useContext(GlobalProvider);
 
   const onLongPressHandle = () => {
     const doesThisObjectExistInTheSelectedTasks = selectedTasks.some((element) => element.id === id);
     if (!doesThisObjectExistInTheSelectedTasks) {
-      setSelectedTasks([...selectedTasks, { id, task }]);
+      setSelectedTasks([...selectedTasks, { id, task, done }]);
     }
   };
 
@@ -53,11 +54,16 @@ export default function TaskCard({ task, id }) {
         if (isSelected()) {
           setSelectedTasks(selectedTasks.filter((element) => element.id !== id));
         } else if (selectedTasks.length > 0) {
-          setSelectedTasks([...selectedTasks, { id, task }]);
+          setSelectedTasks([...selectedTasks, { id, task, done }]);
         }
       } }
     >
-      <Text style={ styles.textStyle }>{ task }</Text>
+      {
+        done
+          ? <Feather style={ styles.textStyle } name="check-square" size={ 24 } color="black" />
+          : <Feather style={ styles.textStyle } name="square" size={ 24 } color="black" />
+      }
+      <Text style={ {...styles.textStyle,  textDecorationLine: done ? 'line-through' : 'none' } }>{ task }</Text>
     </Pressable>
   )
 }

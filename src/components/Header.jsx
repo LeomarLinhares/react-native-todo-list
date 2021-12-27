@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { GlobalProvider } from '../contexts/GlobalContext';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, Feather } from '@expo/vector-icons';
 import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 import { ModalProvider } from '../contexts/ModalContext';
 
@@ -21,6 +21,23 @@ export default function Header() {
     setItem(await JSON.stringify(listWithoutDeleted));
   };
 
+  const doneTasks = async () => {
+    const listWithDone = taskList.reduce((acc, curr) => {
+      const actualTask = selectedTasks.filter((element) => element.id === curr.id);
+      const item = actualTask[0];
+      if (actualTask.length > 0) return [...acc, { id: item.id, task: item.task, done: !item.done }];
+      return [...acc, curr];
+    }, []);
+    setTaskList(listWithDone);
+    setSelectedTasks([]);
+    setItem(await JSON.stringify(listWithDone));
+  };
+
+  const allDoneEqualObserver = () => selectedTasks.reduce((acc, curr) => {
+    if (acc.started) return { last: curr.done, result: true }
+    return { last: curr.done, result: acc.last === curr.done }
+  }, { started: true });
+
   const selectedModRender = () => {
     return (
       <View style={ styles.styleSelectedItem }>
@@ -31,6 +48,20 @@ export default function Header() {
           color="black"
           onPress={ deleteTasks }
         />
+        {
+          allDoneEqualObserver().result
+            ? (
+              <Feather
+                style={ styles.icon }
+                name={ selectedTasks[0].done ? 'divide-square' : 'check-square' }
+                size={ 24 }
+                color="black"
+                onPress={ doneTasks }
+              />
+            )
+            : <></>
+        }
+        
         {
           selectedTasks.length === 1
           ? (
@@ -78,6 +109,6 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   icon: {
-    marginHorizontal: 10,
+    marginHorizontal: 16,
   }
 });

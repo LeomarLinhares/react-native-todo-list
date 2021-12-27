@@ -25,6 +25,7 @@ export default function ModalHolder() {
     setTaskList([...taskList, {
       id,
       task,
+      done: false,
     }])
     setTask('');
     setAddTaskModalIsVisible(false);
