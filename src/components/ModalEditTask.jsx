@@ -8,9 +8,23 @@ import { GlobalProvider } from '../contexts/GlobalContext';
 const screen = Dimensions.get('screen');
 
 export default function ModalEditTask() {
-  const { selectedTasks } = useContext(GlobalProvider);
+  const { selectedTasks, setSelectedTasks, taskList, setTaskList } = useContext(GlobalProvider);
   const [task, setTask] = useState('');
   const { editTaskModalIsVisible, setEditTaskModalIsVisible } = useContext(ModalProvider);
+
+  const handleTaskTitle = (value) => {
+    setTask(value);
+  };
+
+  const editTask = () => {
+    const modifiedList = taskList.reduce((acc, curr) => {
+      if (curr.id === selectedTasks[0].id) return [...acc, { id: selectedTasks[0].id, task }];
+      return [...acc, curr];
+    }, []);
+    setTaskList(modifiedList);
+    setEditTaskModalIsVisible(false);
+    setSelectedTasks([]);
+  };
 
   useEffect(() => {
     if (selectedTasks.length > 0) {
@@ -39,12 +53,12 @@ export default function ModalEditTask() {
               >
                 <InputBox
                   title="Editando tarefa"
-                  action={ () => console.log('input') }
+                  action={ handleTaskTitle }
                   value={ task }
                 />
                 <Button
                   title="Editar tarefa"
-                  onPress={ () => console.log('edita') }
+                  onPress={ editTask }
                   color="#0c4b5e"
                 />
               </View>
