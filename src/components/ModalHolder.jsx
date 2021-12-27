@@ -23,6 +23,8 @@ export default function ModalHolder() {
       id,
       task,
     }])
+    setTask('');
+    setAddTaskModalIsVisible(false);
   };
 
   useEffect(async () => {
