@@ -3,11 +3,13 @@ import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { GlobalProvider } from '../contexts/GlobalContext';
 import { Ionicons } from '@expo/vector-icons';
 import { useAsyncStorage } from '@react-native-async-storage/async-storage';
+import { ModalProvider } from '../contexts/ModalContext';
 
 const screen = Dimensions.get('screen');
 
 export default function Header() {
   const { setSelectedTasks, selectedTasks, setTaskList, taskList } = useContext(GlobalProvider);
+  const { setEditTaskModalIsVisible } = useContext(ModalProvider);
   const { setItem } = useAsyncStorage('@storage_data');
 
   const deleteTasks = async () => {
@@ -37,6 +39,7 @@ export default function Header() {
               name="pencil"
               size={ 24 }
               color="black"
+              onPress={ () => setEditTaskModalIsVisible(true) }
             />)
           : <></>
         }
