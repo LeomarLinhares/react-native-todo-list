@@ -12,7 +12,6 @@ export default function GlobalContext({ children }) {
   const readItemFromStorage = async () => {
     const list = await getItem();
     const data = await JSON.parse(list);
-    console.log(data)
     setTaskList(data)
   }
 
