@@ -5,11 +5,14 @@ import { GlobalProvider } from '../contexts/GlobalContext';
 import InputBox from './InputBox';
 import createID from '../helpers/createID';
 import { useAsyncStorage } from '@react-native-async-storage/async-storage';
+import { ModalProvider } from '../contexts/ModalContext';
+import ModalEditTask from './ModalEditTask';
 
 const screen = Dimensions.get('screen');
 
 export default function ModalHolder() {
-  const { addTaskModalIsVisible, setAddTaskModalIsVisible, taskList, setTaskList } = useContext(GlobalProvider);
+  const { addTaskModalIsVisible, setAddTaskModalIsVisible } = useContext(ModalProvider);
+  const { taskList, setTaskList } = useContext(GlobalProvider);
   const [task, setTask] = useState('');
   const { setItem } = useAsyncStorage('@storage_data');
 
@@ -38,6 +41,7 @@ export default function ModalHolder() {
   
   return (
     <View>
+      <ModalEditTask />
       <Modal
         animationType="fade"
         transparent={ true }
