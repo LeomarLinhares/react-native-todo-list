@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Text, Pressable, StyleSheet, Dimensions } from 'react-native';
 import { GlobalProvider } from '../contexts/GlobalContext';
 import { Feather } from '@expo/vector-icons';
+import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 
 const screen = Dimensions.get('screen');
 
@@ -23,7 +24,8 @@ const styles = StyleSheet.create({
 });
 
 export default function TaskCard({ task, id, done }) {
-  const { selectedTasks, setSelectedTasks } = useContext(GlobalProvider);
+  const { selectedTasks, setSelectedTasks, taskList, setTaskList } = useContext(GlobalProvider);
+  const { setItem } = useAsyncStorage('@storage_data');
 
   const onLongPressHandle = () => {
     const doesThisObjectExistInTheSelectedTasks = selectedTasks.some((element) => element.id === id);
@@ -46,6 +48,15 @@ export default function TaskCard({ task, id, done }) {
     }
   };
 
+  const doneOrUndoneTask = async () => {
+    const listWithDonePropertyModified = taskList.reduce((acc, curr) => {
+      if (curr.id === id) return [...acc, { task, id, done: !done }];
+      return [...acc, curr];
+    }, [])
+    setTaskList(listWithDonePropertyModified);
+    setItem(await JSON.stringify(listWithDonePropertyModified));
+  };
+
   return (
     <Pressable
       style={ ({ pressed }) => styleHandle(pressed) }
@@ -60,8 +71,20 @@ export default function TaskCard({ task, id, done }) {
     >
       {
         done
-          ? <Feather style={ styles.textStyle } name="check-square" size={ 24 } color="black" />
-          : <Feather style={ styles.textStyle } name="square" size={ 24 } color="black" />
+          ? <Feather
+              style={ styles.textStyle }
+              name="check-square"
+              size={ 24 }
+              color="black"
+              onPress={ doneOrUndoneTask }
+            />
+          : <Feather
+              style={ styles.textStyle }
+              name="square"
+              size={ 24 }
+              color="black"
+              onPress={ doneOrUndoneTask }
+            />
       }
       <Text style={ {...styles.textStyle,  textDecorationLine: done ? 'line-through' : 'none' } }>{ task }</Text>
     </Pressable>
